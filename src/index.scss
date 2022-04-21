@@ -1,0 +1,164 @@
+@import url("./font/style.css");
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:'SF Pro Display Regular',sans-serif;
+  font-size:14px;
+  text-rendering: optimizeSpeed;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar{
+    width: 14px;
+    height: 14px;
+    background: rgb(226, 226, 226);
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background: rgb(185, 185, 185);
+  }
+}
+
+
+.btn{
+  padding:10px 25px;
+  outline: none;
+  border-radius: 6px;
+  border: none;
+  background: black;
+  position: relative;
+  transition: all cubic-bezier(.18,1.08,.87,.99) 0.2s;
+
+  span{
+    color: white;
+  }
+}
+
+.btn-blue{
+  background:rgb(0, 140, 255);
+
+  &:hover{
+    background:rgb(0, 125, 228);
+  }
+
+  &:active{
+    background:rgb(0, 93, 168);
+  }
+}
+
+.btn-red{
+  background:rgb(255, 17, 17);
+  
+  &:hover{
+    background:rgb(235, 15, 15);
+  }
+
+  &:active{
+    background:rgb(185, 10, 10);
+  }
+}
+
+.btn-green{
+  background:rgb(27, 228, 0);
+  
+  &:hover{
+    background:rgb(24, 199, 1);
+  }
+
+  &:active{
+    background:rgb(18, 151, 0);
+  }
+}
+
+.btn-pale{
+  background:rgb(51,122,183);
+  &:hover{
+    background:#2b70ad;
+  }
+
+  &:active{
+    background:rgb(26, 79, 126);
+  }
+}
+
+.btn-black{
+  background:rgb(39, 40, 41);
+  &:hover{
+    background:rgb(28, 28, 29);
+  }
+
+  &:active{
+    background:rgb(0, 0, 0);
+  }
+}
+
+.btn-loading{
+
+  span{
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &::after{
+    content:"";
+    top: 0;left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width:15px;
+    height: 15px;
+    border-top: solid white 3px;
+    border-radius: 50%;
+    position:absolute;
+    animation: btn-move 0.8s linear infinite; 
+  }
+
+}
+@keyframes btn-move {
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+.btn-loading-blue{
+  background:rgb(0, 93, 168);
+
+  &:hover{
+    background:rgb(0, 93, 168);
+  }
+}
+
+.btn-loading-red{
+  background:rgb(185, 10, 10);
+
+  &:hover{
+    background:rgb(185, 10, 10);
+  }
+}
+
+.btn-loading-green{
+  background:rgb(18, 151, 0);
+
+  &:hover{
+    background:rgb(18, 151, 0);
+  }
+}
+
+.btn-loading-pale{
+  background:rgb(26, 79, 126);
+
+  &:hover{
+    background: rgb(26, 79, 126);
+  }
+}
+
+.btn-loading-black{
+  background:rgb(0, 0, 0);
+
+  &:hover{
+    background:rgb(0, 0, 0);
+  }
+}

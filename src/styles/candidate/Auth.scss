@@ -1,0 +1,40 @@
+.CandidateAuth{
+    width:100%;
+    height:100vh;
+    background: url('../../assets/candidateAuthBg.jpeg') center no-repeat fixed;
+    background-size: cover;
+    display: flex;
+    padding-right: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    
+    .logo{
+        display: flex;
+        background: rgba(255, 255, 255, 0.911);
+        padding:10px 15px;
+        border-radius: 200px;
+        width:fit-content;
+        align-items: center;
+        gap: 5px;
+        img{
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            padding:5px;
+        }
+
+        h2{
+            color: rgb(44, 40, 40);
+            font-size:1.8rem;
+        }
+    }
+
+    .content{
+        max-height:70vh;
+        width:fit-content;
+        background: white;
+        border-radius:10px;
+    }
+}

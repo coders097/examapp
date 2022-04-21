@@ -1,0 +1,165 @@
+.Add-question{
+    width: 100%;
+
+    .test-edit-mode{
+        padding: 8px 10px;
+        border: solid rgb(33, 128, 33) 1.8px;
+        background: rgb(196, 241, 196);
+        color: rgb(14, 114, 14);
+        display: flex;
+        font-size: 1rem;
+        margin-bottom: 8px;
+        align-items: center;
+
+        i{
+            margin-left: auto;
+        }
+    }
+
+    input[type="text"]{
+        outline: none;
+        border: solid 1.4px rgb(187, 187, 187);
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 1.3rem;
+        width: 100%;
+    }
+
+    textarea{
+        outline: none;
+        border: solid 1.4px rgb(187, 187, 187);
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 1.3rem;
+        width: 100%;
+    }
+
+    .options{
+        width: 100%;
+        margin: 6px 0px;
+
+        h5{
+            font-size: 0.9rem;
+            color: grey;
+            margin: 5px 0px;
+        }
+
+        .option{
+            width: 100%;
+            display: flex;
+            margin-bottom: 5px;
+            padding: 8px;
+            border: solid rgb(207, 207, 207) 1.4px;
+            
+            p{
+                font-size: 1.2rem;
+                outline: none;
+            }
+
+            i:first-of-type{
+                margin-left: auto;
+            }
+
+            i{
+                margin-right: 20px;
+                font-size: 1.2rem;
+                transform: translateY(2px);
+                opacity: 0;
+            }
+
+            i:last-of-type{
+                margin-right: 5px;
+            }
+
+            &:hover{
+                i{
+                    opacity: 1;
+                }
+            }
+        }
+
+        .active{
+            border: none;
+            background: rgb(43, 39, 39);
+            p{
+                color: white;
+            }
+            i{
+                color: white;
+            }
+        }
+
+        button{
+            padding: 6px 20px;
+            font-size: 1rem;
+
+            &:active{
+                transform: scale(0.93);
+            }
+        }
+
+    }
+
+    .submit-ques{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        button{
+            padding: 8px 20px;
+
+            &:active{
+                transform: scale(0.93);
+            }
+        }
+    }
+
+    h4{
+        text-align: center;
+        font-size: 1rem;
+        color: grey;
+    }
+
+    .questions-uploader{
+        display: flex;
+        margin-top: 10px;
+        align-items: center;
+        padding: 10px;
+        border: dashed 2px grey;
+
+        h3{
+            font-size: 1.4rem;
+            margin-left: 8px;
+            color: grey;
+        }
+
+        button{
+            margin-left: auto;
+        }
+    }
+
+    .prog-question-adder{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+
+        .prog-example{
+            width: 100%;
+            display: flex;
+            gap: 7px;
+        }
+
+        .prog-example-btn{
+            width: fit-content;
+            padding: 6px 20px;
+            font-size: 0.9rem;
+        }
+    }
+    h3{
+        text-align: center;
+        color: grey;
+        font-size: 1.4rem;
+    }
+}

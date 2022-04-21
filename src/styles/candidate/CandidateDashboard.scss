@@ -1,0 +1,129 @@
+.Candidate-Dashboard{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+
+    .main{
+        width: 70%;
+        height: 100%;
+        padding:15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-right: solid 1px rgb(175, 175, 175);
+
+        &>h1{
+            font-size: 3rem;
+            font-weight: bold;
+            color:rgb(36, 33, 33);
+        }
+
+        &>h2{
+            font-size:1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;;
+            img{
+                width:40px;
+                height:40px;
+                object-fit: contain;
+            }
+        }
+
+        &>h3{
+            font-size: 1.4rem;
+            color: grey;
+        }
+
+        .question-card{
+            width: 100%;
+            display: flex;
+            background: rgb(247,249,250);
+            padding: 10px;
+            align-items: center;
+            gap: 15px;
+            border-radius:2px;
+            border: 1.2px solid rgb(175, 175, 175);
+
+            img{
+                width: 100px;
+                height: 90%;
+                object-fit: contain;
+            }
+
+            .details{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                justify-content:center;
+
+                h2{
+                    font-size:1.7rem;
+                }
+
+                p{
+                    color:grey;
+                    font-size:1.2rem;
+                }
+
+                .btn{
+                    width:fit-content;
+                    margin-top:5px;
+                    padding: 10px 30px;
+                }
+            }
+        }
+    }
+
+    .aside{
+        width: 30%;
+        height: 100%;
+        padding:15px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        background: rgb(247,249,250);
+
+        video {
+            width: 100%;
+        }
+
+        h2{
+            font-size:2rem;
+        }
+
+        p{
+            font-size:1.4rem;
+            span{
+                font-size:1.5rem;
+                color: black;
+                font-weight:bold;
+            }
+        }
+
+        h3{
+            font-size:3rem;
+
+            span{
+                font-size:1.5rem;
+                color:grey;
+            }
+        }
+
+        ul{
+            padding:14px;
+            padding-top:0px;
+            width:100%;
+
+            li{
+                font-size:1.2rem;
+            }
+        }
+
+        button{
+            margin-top:auto;
+        }
+    }
+}

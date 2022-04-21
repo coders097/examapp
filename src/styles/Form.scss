@@ -1,0 +1,272 @@
+.form-google{
+    margin: 30px;
+    width: 500px;
+    display:flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .input-box{
+    
+        .input-field{
+            width: 100%;
+            position: relative;
+
+            span{
+                position: absolute;
+                color: rgb(102, 101, 101);
+                left: 24px;
+                pointer-events: none;
+                user-select: none;
+                top: 50%;
+                transition: all ease-in-out 0.15s;
+                background:white;
+                transform:translateY(-50%);
+                font-size:1.4rem;
+            }
+
+            input,
+            textarea{
+                padding:16px 18px;
+                outline:none;
+                transition: all cubic-bezier(.31,.54,.14,.99) 0.2s;
+                width: 100%;
+                font-size:1.2rem;
+                border-radius: 6px;
+                border: solid rgb(158, 158, 158) 1.5px;
+            }
+
+            input:focus,
+            textarea:focus{
+                border: solid rgb(4, 121, 255) 2px;
+            }
+
+            input:focus + span,
+            textarea:focus + span{
+                top: 0;
+                color: rgb(5, 99, 207);
+                left: 12px;
+                padding: 0px 5px;
+                font-size:1rem;
+            }
+
+            input:not(:placeholder-shown) + span,
+            textarea:not(:placeholder-shown) + span{
+                top: 0;
+                left: 12px;
+                padding: 0px 5px;
+                font-size:1rem;
+            } 
+        }
+
+        .--error{
+            input,
+            textarea{
+                border: solid rgb(236, 5, 5) 2px;
+            }
+
+            input:focus,
+            textarea:focus{
+                border: solid rgb(236, 5, 5) 2px;
+            }
+
+            input:focus + span,
+            textarea:focus + span{
+                color: rgb(236, 5, 5);
+            }
+
+            input:not(:placeholder-shown) + span,
+            textarea:not(:placeholder-shown) + span{
+                color: rgb(236, 5, 5);
+            } 
+        }
+    
+        .--error-message{
+            display: none;
+        }
+        
+    }
+
+    .--show-error-message{
+
+        .input-field{
+            margin-bottom:2px;
+            position: relative;
+        }
+
+        .--error-message{
+            display: unset;
+            color: rgb(236, 5, 5);
+            padding: 0px 6px;
+        }
+    }
+}
+
+.form-default{
+    margin: 30px;
+    width: 500px;
+    display:flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .input-box{
+
+        .input-field{
+            width: 100%;
+            position: relative;
+
+            span{
+                position: absolute;
+                color: rgb(102, 101, 101);
+                left: 0px;
+                pointer-events: none;
+                user-select: none;
+                top: 50%;
+                transition: all ease-in-out 0.15s;
+                background:white;
+                transform:translateY(-50%);
+                font-size:1.4rem;
+            }
+
+            input,
+            textarea{
+                padding:16px 0px;
+                outline:none;
+                transition: all cubic-bezier(.31,.54,.14,.99) 0.2s;
+                width: 100%;
+                font-size:1.2rem;
+                border: none;
+                border-bottom: solid rgb(158, 158, 158) 1.5px;
+            }
+
+            input:focus,
+            textarea:focus{
+                border-bottom: solid rgb(4, 121, 255) 2px;
+            }
+
+            input:focus + span,
+            textarea:focus + span{
+                top: 0;
+                // color: rgb(5, 99, 207);
+                left: 0px;
+                font-size:1rem;
+            }
+
+            input:not(:placeholder-shown) + span,
+            textarea:not(:placeholder-shown) + span{
+                top: 0;
+                left: 0px;
+                font-size:1rem;
+            } 
+        }
+
+        .--error{
+            input,
+            textarea{
+                border-bottom: solid rgb(236, 5, 5) 2px;
+            }
+
+            input:focus,
+            textarea:focus{
+                border-bottom: solid rgb(236, 5, 5) 2px;
+            }
+
+            // input:focus + span,
+            // textarea:focus + span{
+            //     color: rgb(236, 5, 5);
+            // }
+
+            // input:not(:placeholder-shown) + span,
+            // textarea:not(:placeholder-shown) + span{
+            //     color: rgb(236, 5, 5);
+            // } 
+        }
+    
+        .--error-message{
+            display: none;
+        }
+
+    }
+
+    .--show-error-message{
+
+        .input-field{
+            margin-bottom:2px;
+            position: relative;
+        }
+
+        .--error-message{
+            display: unset;
+            color: rgb(236, 5, 5);
+        }
+    }
+
+}
+
+.submit-btn{
+    outline: none;
+    border: none;
+    transition: all ease-in-out 0.18s;    
+    padding: 14px 20px;
+    border-radius: 7px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.432) 0px 0px 4px;
+    
+    &:active{
+        background:rgb(238, 238, 238);
+        transform:scale(0.95);
+    }
+}
+
+
+.pic-input-box{
+    margin: 0 auto;
+
+    div{
+        display:flex;
+        align-items: center;
+
+        img{
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 20px;
+            margin-top:0px;
+        }
+
+        div{
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(to right bottom,rgb(69, 148, 151),rgb(161, 48, 143));
+            border-radius: 50%;
+            margin: 20px;
+            margin-top:0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size:80px;
+            color:white;
+        }
+
+        button{
+            outline: none;
+            border: none;
+            transition: all ease-in-out 0.18s;    
+            padding: 8px 20px;
+            border-radius: 6px;
+            background: white;
+            box-shadow: rgba(0, 0, 0, 0.432) 0px 0px 4px;
+            
+            &:active{
+                background:rgb(238, 238, 238);
+                transform:scale(0.95);
+            }
+        }
+    }
+
+    p{
+        text-align: center;
+        font-size:1.2rem;
+        color:red;
+    }
+}

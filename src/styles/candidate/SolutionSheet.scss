@@ -1,0 +1,314 @@
+.Solution-page-layout{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 30vw 1fr;
+    grid-template-areas: "solution-nav solution-nav"
+                         "solution-aside solution-content";
+
+    .Solution-nav{
+        width: 100%;
+        height: 100%;
+        grid-area: solution-nav;
+        display: flex;
+        align-items: center;
+        cursor: default;
+        padding: 10px 20px;
+        gap: 15px;
+        border-bottom: solid 1px rgb(175, 175, 175);
+
+        img{
+            height:30px;
+            width:30px;
+            cursor: pointer;
+            object-fit: contain;
+        }
+
+        h1{
+            font-size:2.5rem;
+            color: rgb(44, 42, 42);
+        }
+
+        video{
+            margin-left:auto;
+            height:100%;
+            width:100px;
+        }
+
+        .details{
+            p{
+                span{
+                    color: rgb(10, 10, 10);
+                    font-weight: 800;
+                }
+            }
+            h2{
+                font-size: 1.6em;
+                font-weight: 800;
+            }
+        }
+    }
+
+    .Solution-aside{
+        width: 100%;
+        height: 100%;
+        grid-area: solution-aside;
+        border-right: solid 1px rgb(175, 175, 175);
+        overflow:auto;
+
+        &::-webkit-scrollbar{
+            background:rgb(247,249,250);
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background: rgb(201, 201, 201);
+        }
+
+        .question{
+            width: 100%;
+            padding:15px;
+            border-bottom: solid 1px rgb(175, 175, 175);
+
+            h2{
+                font-size:1.5rem;
+                font-weight:800;
+                cursor: pointer;
+            }
+
+            .details{
+                padding-top: 10px;
+                cursor: default;
+
+                &>p{
+                    font-size:1.2rem;
+                    margin-top:5px;
+                    font-family: sans-serif;
+                    color: rgb(73, 73, 73);
+                }
+
+                .example{
+                    width: 100%;
+                    background:rgb(250, 250, 250);
+                    margin:10px 0px;
+                    padding: 10px;
+                    border: 1px solid rgb(197, 197, 197);
+                    border-radius:4px;
+
+                    p{
+                        font-size:1.1rem;
+                    font-family: sans-serif;
+                        color: rgb(63, 63, 63);
+                        margin-top:3px;
+
+                        span{
+                            font-size: 1.2rem;
+                            font-weight: 800;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .question:last-of-type{
+            border-bottom: none;
+        }
+
+        .question-menu{
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            gap: 15px;
+            display: flex;
+            flex-direction: column;
+
+            .question-sets{
+                width: 100%;
+                display: flex;
+                gap: 10px;
+                max-height: 100%;
+                overflow:auto;
+                flex-wrap: wrap;
+                
+                div{
+                    padding: 15px 20px;
+                    cursor: pointer;
+                    border-radius:4px;
+                    font-size:1.4rem;
+                    height: fit-content;
+                    border: solid 1px rgb(177, 177, 177);
+                }
+
+                .attempted{
+                    background: rgb(211, 211, 211);
+                }
+            }
+        }
+    }
+
+    .Solution-aside-flex{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Solution-content{
+        width: 100%;
+        height: 100%;
+        grid-area: solution-content;
+        display: flex;
+        flex-direction: column;
+
+        .menu{
+            width: 100%;
+            padding: 5px;
+            background: rgb(247,249,250);
+            display: flex;
+            gap: 10px;  
+            border-bottom: solid 1px rgb(175, 175, 175);
+            
+            select{
+                font-family:'SF Pro Display Regular',sans-serif;
+                padding: 5px 10px;
+                outline: none;
+                color: rgb(37, 34, 34);
+                border: solid 1.5px rgb(179, 179, 179);
+                background: rgb(247,249,250);
+                border-radius:2px;
+                
+                option{
+                background: rgb(247,249,250);
+                    font-family:'SF Pro Display Regular',sans-serif;
+                }
+            }
+        }
+        
+        & *{
+            font:12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+            font-size:17px;
+        }
+
+        .compiler{
+            width: 100%;
+            padding:5px;
+            max-height: 300px;
+            display: flex;
+            gap: 5px;
+
+            textarea{
+                padding:6px;
+                outline:none;
+                overflow:auto;
+                border: solid 1.5px rgb(179, 179, 179);
+                width: 40%;
+            }
+
+            .output-compiler{
+                width: 60%;
+                overflow:auto;
+                background:rgb(36, 34, 34);
+                color: white;
+                padding: 5px 10px;
+            }
+        }
+
+        .runner{
+            width: 100%;
+            display: flex;
+            gap: 5px;
+            padding:5px;
+            border-top: solid 1px rgb(175, 175, 175);
+            background: rgb(247,249,250);
+        
+            span{
+                font-family:'SF Pro Display Regular',sans-serif;
+            }
+        }
+
+        .answer-sheet{
+            width: 100%;
+            height: 100%;
+            overflow:auto;
+            display: flex;
+            flex-direction: column;
+
+            & *{
+                font-family:'SF Pro Display Regular',sans-serif;
+            }
+
+            .answer-box{
+                width: 100%;
+                padding:15px;
+                border-bottom: solid 1px rgb(175, 175, 175);
+                
+                &:last-of-type{
+                    border-bottom:none;
+                }
+
+                h3{
+                    font-size:1.4rem;
+                }
+
+                .answer-options{
+                    width:100%;
+                    margin-top:6px;
+                    margin-bottom:6px;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .answer-option{
+                        width:50%;
+                        padding:6px;
+                        padding-left:0px;
+
+                        label{
+                            margin-left: 27px;
+                        }
+
+                        input{
+                            appearance: none;
+                            position: relative;
+                        }
+
+                        input:before{
+                            content: "";
+                            position: absolute;
+                            width: 20px;
+                            opacity: 0.8;
+                            transition: all ease-in-out 0.12s; 
+                            height: 20px;
+                            background:url(../../assets/check.png) center center no-repeat;
+                            background-size: contain;
+                            top: 0;
+                            z-index: 12;
+                            transform: translateY(-75%) scale(0) rotate(180deg);
+                        }
+
+                        input:checked:before{
+                            transform: translateY(-75%) scale(1) rotate(0deg);
+                        }
+
+                        input:after{
+                            content: "";
+                            position: absolute;
+                            width: 18px;
+                            height: 18px;
+                            border: 1px solid rgb(131, 131, 131);
+                            border-radius:50%;
+                            top: 0;
+                            transform: translateY(-75%);
+                        }
+                    }
+                }
+
+                p{
+                    color: grey;
+                    font-size:1rem;
+                    cursor: pointer;
+                }
+
+            }
+        }
+
+    }
+}
