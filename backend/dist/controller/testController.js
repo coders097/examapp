@@ -38,6 +38,7 @@ const Conductor_1 = __importDefault(require("../models/Conductor"));
 const xlsx_1 = __importDefault(require("xlsx"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
+const Batch_1 = __importDefault(require("../models/Batch"));
 let resultsOuputFunc = (data) => {
     let wb = xlsx_1.default.read(data);
     let ws = wb.Sheets[wb.SheetNames[0]];
@@ -352,8 +353,37 @@ let addProgrammingQuestionsToTest = (req, res) => __awaiter(void 0, void 0, void
         errors_1.default.internalServerError(res);
     }
 });
-let deleteTest = () => {
-};
+let deleteTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { _id, testId } = req.body;
+    if (!_id || !testId) {
+        errors_1.default.badRequestError(res);
+        return;
+    }
+    try {
+        let organization = yield Organisation_1.default.findById(_id);
+        let test = yield Test_1.default.findById(testId);
+        if (organization && test) {
+            organization.tests = organization.tests.filter(_testId => {
+                return _testId.toString() != testId;
+            });
+            test.batches.forEach(batchId => {
+                Batch_1.default.updateOne({ _id: batchId }, { $pull: { "tests": testId } }).then(() => { }).catch(() => { });
+            });
+            organization.save().then(() => {
+                res.status(200).json({ success: true });
+                Test_1.default.deleteOne({ _id: testId }).then(() => {
+                    console.log("Deleted test!");
+                }).catch(() => { });
+            });
+        }
+        else
+            errors_1.default.notFoundError(res);
+    }
+    catch (e) {
+        console.log(e);
+        errors_1.default.internalServerError(res);
+    }
+});
 exports.default = {
     addTest, editTest, addQuestionsToTest, getTestData, addProgrammingQuestionsToTest, deleteTest
 };

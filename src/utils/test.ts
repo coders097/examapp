@@ -522,6 +522,74 @@ let editPreferences=async ({command,testName,authContext,notificationsContext,se
     }
 }
 
+let deleteTest=({testId,authContext,notificationsContext,setViewLayout,testsDispatcher,testsState}:{
+    testId:string,
+    authContext:{
+        authState: AUTHSTATE;
+        authDispatch: React.Dispatch<{
+            type: string;
+            payload: AUTHSTATE;
+        }>;
+    } | null,
+    notificationsContext:{
+        notificationState: NOTIFICATIONSTATE;
+        notificationDispatch: React.Dispatch<{
+            type: string;
+            payload: NOTIFICATIONSTATE;
+        }>;
+    } | null,
+    setViewLayout:React.Dispatch<React.SetStateAction<{
+        view: number;
+        data: TestState | null;
+    }>>,
+    testsDispatcher:React.Dispatch<{
+        type: string;
+        payload: any;
+    }> | undefined,
+    testsState:BatchTestState[] | undefined
+})=>{
+    fetch(`${domain}/organisation/test/deleteTest`,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            testId:testId
+        })
+    }).then(response =>response.json())
+    .then(data=>{
+        if(data.success){
+            setViewLayout({
+                view:0,
+                data:null
+            });
+            if(testsState) testsState=testsState.filter(_test=>_test._id!=testId);
+            if(testsDispatcher && testsState) testsDispatcher({
+                type:"LOAD",
+                payload:[...testsState]
+            });
+        }else if(data.error==='Expired Token!'){
+            if(authContext?.authState && authContext?.authDispatch)
+            authUtil.refreshTokenAndProcedd(authContext.authState,authContext.authDispatch,()=>{
+                deleteTest({authContext,notificationsContext,setViewLayout,testId,testsDispatcher,testsState});
+            });
+        }else if(notificationsContext){
+            console.log(data.error);
+            notificationsContext.notificationState.notifications.push("Failed to Delete Test:(");
+            notificationsContext.notificationDispatch({
+                type:"ADD_NOTIFICATION",
+                payload:{
+                    active:true,
+                    notifications:notificationsContext.notificationState.notifications
+                }
+            });
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 export default {
-    createTest,openTest,uploadQuestions,uploadProgQuestion,editPreferences
+    createTest,openTest,uploadQuestions,uploadProgQuestion,editPreferences,deleteTest
 }    

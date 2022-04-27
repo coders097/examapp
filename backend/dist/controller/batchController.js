@@ -16,6 +16,7 @@ const xlsx_1 = __importDefault(require("xlsx"));
 const errors_1 = __importDefault(require("../controller/errors"));
 const Batch_1 = __importDefault(require("../models/Batch"));
 const Organisation_1 = __importDefault(require("../models/Organisation"));
+const Test_1 = __importDefault(require("../models/Test"));
 let resultsOuputFuncHelper = (data) => {
     let wb = xlsx_1.default.read(data);
     let ws = wb.Sheets[wb.SheetNames[0]];
@@ -195,8 +196,37 @@ let getBatchData = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         errors_1.default.internalServerError(res);
     }
 });
-let deleteBatch = (req, res) => {
-};
+let deleteBatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { _id, batchId } = req.body;
+    if (!_id || !batchId) {
+        errors_1.default.badRequestError(res);
+        return;
+    }
+    try {
+        let organization = yield Organisation_1.default.findById(_id);
+        let batch = yield Batch_1.default.findById(batchId);
+        if (organization && batch) {
+            organization.batches = organization.batches.filter(_batchId => {
+                return _batchId.toString() != batchId;
+            });
+            batch.tests.forEach(testId => {
+                Test_1.default.updateOne({ _id: testId }, { $pull: { "batches": testId } }).then(() => { }).catch(() => { });
+            });
+            organization.save().then(() => {
+                res.status(200).json({ success: true });
+                Batch_1.default.deleteOne({ _id: batchId }).then(() => {
+                    console.log("Deleted batch!");
+                }).catch(() => { });
+            });
+        }
+        else
+            errors_1.default.notFoundError(res);
+    }
+    catch (e) {
+        console.log(e);
+        errors_1.default.internalServerError(res);
+    }
+});
 exports.default = {
     addBatchData, addBatch, editBatch, getBatchData, deleteBatch
 };

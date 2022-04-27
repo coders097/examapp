@@ -211,7 +211,14 @@ const Batches = () => {
     }
 
     let deleteBatch=()=>{
-        console.log("DELETE BATCH");
+        if(viewLayout.data)
+            batchUtils.deleteBatch({
+                batchId:viewLayout.data._id,
+                authContext: authContext,
+                notificationsContext:notificationsContext,
+                setViewLayout:setViewLayout,
+                batchTestContext:batchTestContext
+            });
     }
 
 

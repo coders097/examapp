@@ -109,6 +109,16 @@ const TestDetailedView = ({data,setViewLayout}:{
         }
     }
 
+    let deleteTest = () => {
+        testUtils.deleteTest({
+            testId:data._id,
+            authContext: authContext,
+            notificationsContext:notificationsContext,
+            setViewLayout:setViewLayout,
+            testsDispatcher:batchTestContext?.testsDispatcher,
+            testsState:batchTestContext?.testsState
+        });
+    }
 
     return (
         <>
@@ -121,7 +131,7 @@ const TestDetailedView = ({data,setViewLayout}:{
                     })}/>
                     <h1>{data.name}</h1>
                     <button className="btn btn-blue" onClick={() =>editPreferences("RENAMETEST")}><span>RENAME</span></button>
-                    <button className="btn btn-red" ><span>DELETE</span></button>
+                    <button className="btn btn-red" onClick={()=>deleteTest()}><span>DELETE</span></button>
                 </div>
                 <H2Wrapper name="Add Question" defaultShow={false}>
                     <QuestionAdder type="mcq" data={data} setViewLayout={setViewLayout} editMode={editMode} setEditMode={setEditMode}/>

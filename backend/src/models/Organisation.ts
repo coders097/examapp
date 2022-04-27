@@ -26,7 +26,7 @@ let orgaSchema=new mongoose.Schema({
     }],
     batches:[{ 
         type:mongoose.SchemaTypes.ObjectId,
-        ref:"batch"
+        ref:"batch" 
     }],
     dateOfCreation:{
         type:Date,

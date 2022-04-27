@@ -579,9 +579,95 @@ let deleteCandidates=(props:{
 }
 
 let deleteBatch=(props:{
-
+    batchId:string,
+    authContext: {
+        authState: AUTHSTATE;
+        authDispatch: React.Dispatch<{
+            type: string;
+            payload: AUTHSTATE;
+        }>;
+    } | null,
+    notificationsContext:{
+        notificationState: NOTIFICATIONSTATE;
+        notificationDispatch: React.Dispatch<{
+            type: string;
+            payload: NOTIFICATIONSTATE;
+        }>;
+    } | null,
+    setViewLayout:React.Dispatch<React.SetStateAction<{
+        view: number;
+        data: {
+            _id: string;
+            tests: [
+                {
+                    name: string;
+                    _id: string;
+                }
+            ];
+            candidates: {
+                name: string;
+                email: string;
+                regdNo: string;
+            }[];
+            name: string;
+            dateOfCreation: string;
+        } | null;
+    }>>,
+    batchTestContext:{
+        batchesState: BatchTestState[];
+        testsState: BatchTestState[];
+        batchesDispatcher: React.Dispatch<{
+            type: string;
+            payload: any;
+        }>;
+        testsDispatcher: React.Dispatch<any>;
+    } | null
 })=>{
-
+    fetch(`${domain}/organisation/batch/deleteBatch`,{
+        method: 'POST',
+        credentials:"include",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            batchId:props.batchId
+        })
+    }).then(response=>response.json())
+    .then(data=>{
+        if(data.success){
+            props.setViewLayout({
+                view:0,
+                data:null
+            });
+            if(props.batchTestContext){
+                let batchesState=props.batchTestContext.batchesState.filter(batch=>{
+                    return batch._id!=props.batchId
+                });
+                props.batchTestContext.batchesDispatcher({
+                    type:"LOAD",
+                    payload:[...batchesState]
+                });
+            }
+        }else{
+            if(data.error==='Expired Token!'){
+                if(props.authContext?.authState && props.authContext?.authDispatch)
+                authUtil.refreshTokenAndProcedd(props.authContext.authState,props.authContext.authDispatch,()=>{
+                    deleteBatch(props);
+                });
+            }else if(props.notificationsContext){
+                props.notificationsContext.notificationState.notifications.push("😐 Failed to delete batch!");
+                props.notificationsContext.notificationDispatch({
+                    type:"ADD_NOTIFICATION",
+                    payload:{
+                        active:true,
+                        notifications:props.notificationsContext.notificationState.notifications
+                    }
+                });
+            }
+        }
+    }).catch(err=>{
+        console.log((err));
+    });
 };
 
 export default {

@@ -6,6 +6,7 @@ import Conductor from '../models/Conductor';
 import xlsx from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
+import Batch from '../models/Batch';
 
 
 let resultsOuputFunc=(data:Buffer)=>{
@@ -301,8 +302,33 @@ let addProgrammingQuestionsToTest=async (req:express.Request, res: express.Respo
     }
 };
 
-let deleteTest = () => {
-
+let deleteTest = async (req:express.Request, res: express.Response) => {
+    let {_id,testId} = req.body;
+    if(!_id || !testId){
+        E.badRequestError(res);
+        return;
+    }
+    try{
+        let organization=await Organisation.findById(_id);
+        let test=await Test.findById(testId);
+        if(organization && test){
+            organization.tests=(organization.tests as string[]).filter(_testId=>{
+                return _testId.toString()!=testId;
+            });
+            (test.batches as string[]).forEach(batchId=>{
+                Batch.updateOne({_id:batchId},{$pull:{"tests":testId}}).then(()=>{}).catch(()=>{});
+            });
+            organization.save().then(()=>{
+                res.status(200).json({success:true});
+                Test.deleteOne({_id:testId}).then(()=>{
+                    console.log("Deleted test!");
+                }).catch(()=>{});
+            });
+        }else E.notFoundError(res);
+    }catch(e){
+        console.log(e);
+        E.internalServerError(res);
+    }
 }
 
 export default {

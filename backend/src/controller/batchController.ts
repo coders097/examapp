@@ -3,6 +3,7 @@ import express from 'express';
 import E from '../controller/errors';
 import Batch from '../models/Batch';
 import Organisation from '../models/Organisation';
+import Test from '../models/Test';
 
 let resultsOuputFuncHelper=(data:Buffer)=>{
     let wb=xlsx.read(data);
@@ -177,8 +178,33 @@ let getBatchData=async (req:express.Request, res: express.Response)=>{
     }
 };
 
-let deleteBatch = (req:express.Request, res: express.Response) => {
-    
+let deleteBatch = async (req:express.Request, res: express.Response) => {
+    let {_id,batchId} = req.body;
+    if(!_id || !batchId){
+        E.badRequestError(res);
+        return;
+    }
+    try{
+        let organization=await Organisation.findById(_id);
+        let batch=await Batch.findById(batchId);
+        if(organization && batch){
+            organization.batches=(organization.batches as string[]).filter(_batchId=>{
+                return _batchId.toString()!=batchId;
+            });
+            (batch.tests as string[]).forEach(testId=>{
+                Test.updateOne({_id:testId},{$pull:{"batches":testId}}).then(()=>{}).catch(()=>{});
+            });
+            organization.save().then(()=>{
+                res.status(200).json({success:true});
+                Batch.deleteOne({_id:batchId}).then(()=>{
+                    console.log("Deleted batch!");
+                }).catch(()=>{});
+            });
+        }else E.notFoundError(res);
+    }catch(e){
+        console.log(e);
+        E.internalServerError(res);
+    }
 }
 
 export default {
