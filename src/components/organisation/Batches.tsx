@@ -9,7 +9,13 @@ import { BATCHTESTCONTEXT, BatchTestState } from '../../contexts/batchTestContex
 import { NOTIFICATIONCONTEXT } from '../../contexts/notificationContext';
 import { DIALOGCONTEXT } from '../../contexts/dialogContext';
 
-const Batches = () => {
+const Batches = ({messageQueue,setMessageQueue}:{messageQueue:{
+    type: string;
+    data: any;
+}[],setMessageQueue:React.Dispatch<React.SetStateAction<{
+    type: string;
+    data: any;
+}[]>>}) => {
 
 
     let authContext=useContext(AUTHCONTEXT);
@@ -219,8 +225,20 @@ const Batches = () => {
                 setViewLayout:setViewLayout,
                 batchTestContext:batchTestContext
             });
-    }
+    };
 
+    useEffect(()=>{
+        let message=messageQueue.filter(message=>{
+            return message.type=="VIEWBATCH";
+        });
+        if(message.length>0){
+            viewBatch(message[0].data);
+            messageQueue=messageQueue.filter(message=>{
+                return message.type!="VIEWBATCH";
+            });
+            setMessageQueue(messageQueue);
+        }
+    },[messageQueue]);
 
     return (
         <>

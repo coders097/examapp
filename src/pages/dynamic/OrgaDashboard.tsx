@@ -39,6 +39,10 @@ const OrgaDashboard = () => {
     },[authContext]);
 
     let [pageNo,setPageNo] = useState(0);
+    let [messageQueue,setMessageQueue] = useState<{
+        type:string,
+        data:any
+    }[]>([]);
 
     return (
         <section className="OrgaDashboard">
@@ -69,9 +73,9 @@ const OrgaDashboard = () => {
                 <p className={(pageNo===4)?"active":""} onClick={()=>setPageNo(4)}><i className="fa fa-life-ring" aria-hidden="true"></i> About</p>
             </div>
             <div className="Orga-main">
-                {(pageNo===0) && <HomeOrg/>}
-                {(pageNo===1) && <Tests/>}
-                {(pageNo===2) && <Batches/>}
+                {(pageNo===0) && <HomeOrg messageQueue={messageQueue} setMessageQueue={setMessageQueue} setPageNo={setPageNo}/>}
+                {(pageNo===1) && <Tests messageQueue={messageQueue} setMessageQueue={setMessageQueue}/>}
+                {(pageNo===2) && <Batches messageQueue={messageQueue} setMessageQueue={setMessageQueue} />} 
                 {(pageNo===3) && <Settings/>}
                 {(pageNo===4) && <About/>}
             </div>

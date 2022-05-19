@@ -1,4 +1,4 @@
-import React, { createRef, useContext, useState } from 'react';
+import React, { createRef, useContext, useEffect, useState } from 'react';
 import { AUTHCONTEXT } from '../../contexts/authContext';
 import { BATCHTESTCONTEXT, BatchTestState, TestState } from '../../contexts/batchTestContext';
 import { NOTIFICATIONCONTEXT } from '../../contexts/notificationContext';
@@ -8,11 +8,17 @@ import TestDetailedView from './TestDetailedView';
 
 import testUtil from '../../utils/test'; 
 
-const Tests = () => {
+const Tests = ({messageQueue,setMessageQueue}:{messageQueue:{
+    type: string;
+    data: any;
+}[],setMessageQueue:React.Dispatch<React.SetStateAction<{
+    type: string;
+    data: any;
+}[]>>}) => {
 
     let [viewLayout,setViewLayout]=useState<{
         view:number,
-        data:TestState | null
+        data:TestState | null 
     }>({
         view:0,
         data:null
@@ -49,6 +55,18 @@ const Tests = () => {
         });
     }
 
+    useEffect(()=>{
+        let message=messageQueue.filter(message=>{
+            return message.type=="VIEWTEST";
+        });
+        if(message.length>0){
+            viewTest(message[0].data);
+            messageQueue=messageQueue.filter(message=>{
+                return message.type!="VIEWTEST";
+            });
+            setMessageQueue(messageQueue);
+        }
+    },[messageQueue]);
 
     return (
         <>

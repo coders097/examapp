@@ -8,6 +8,7 @@ import Organisation from '../../models/Organisation';
 import E from '../../controller/errors';
 import testBatchCheck from '../../middlewares/TestBatchCheck';
 import multer from 'multer';
+import analyticsController from '../../controller/analysisController';
 
 let upload=multer({
     storage:multer.memoryStorage()
@@ -127,5 +128,22 @@ app.post('/test/getPasskeys',jwtChecker,deploymentController.getPasskeys);
 // @access PRIVATE
 app.post('/test/getTestResults',jwtChecker,deploymentController.getResults);
 
+// @type  POST 
+// @route /organisation/test/getTestDeployed
+// @desc  for getting the tests are deployed
+// @access PRIVATE
+app.post('/test/getTestDeployed',jwtChecker,analyticsController.testDeployedController);
+
+// @type  POST 
+// @route /organisation/test/getLatestTests
+// @desc  for getting the latest tests
+// @access PRIVATE
+app.post('/test/getLatestTests',jwtChecker,analyticsController.latestTestsController);
+
+// @type  POST 
+// @route /organisation/test/getLatestBatches
+// @desc  for getting the latest batches
+// @access PRIVATE
+app.post("/test/getLatestBatches",jwtChecker,analyticsController.latestBatchesController);
 
 export default app; 

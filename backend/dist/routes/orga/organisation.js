@@ -22,6 +22,7 @@ const Organisation_1 = __importDefault(require("../../models/Organisation"));
 const errors_1 = __importDefault(require("../../controller/errors"));
 const TestBatchCheck_1 = __importDefault(require("../../middlewares/TestBatchCheck"));
 const multer_1 = __importDefault(require("multer"));
+const analysisController_1 = __importDefault(require("../../controller/analysisController"));
 let upload = (0, multer_1.default)({
     storage: multer_1.default.memoryStorage()
 });
@@ -127,4 +128,19 @@ app.post('/test/getPasskeys', jwtAuth_1.default, deploymentController_1.default.
 // @desc  for getting/generating results for a test
 // @access PRIVATE
 app.post('/test/getTestResults', jwtAuth_1.default, deploymentController_1.default.getResults);
+// @type  POST 
+// @route /organisation/test/getTestDeployed
+// @desc  for getting the tests are deployed
+// @access PRIVATE
+app.post('/test/getTestDeployed', jwtAuth_1.default, analysisController_1.default.testDeployedController);
+// @type  POST 
+// @route /organisation/test/getLatestTests
+// @desc  for getting the latest tests
+// @access PRIVATE
+app.post('/test/getLatestTests', jwtAuth_1.default, analysisController_1.default.latestTestsController);
+// @type  POST 
+// @route /organisation/test/getLatestBatches
+// @desc  for getting the latest batches
+// @access PRIVATE
+app.post("/test/getLatestBatches", jwtAuth_1.default, analysisController_1.default.latestBatchesController);
 exports.default = app;
