@@ -1,7 +1,7 @@
-let domain = "http://localhost:3002";
 import { AUTHSTATE } from '../contexts/authContext';
 import { NOTIFICATIONSTATE } from '../contexts/notificationContext';
 import authUtil from './auth';
+let domain = "http://localhost:3002";
 
 let loadTestDeployed = (reducer:(args:any)=>{},authContext:{
     authState: AUTHSTATE;
