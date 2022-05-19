@@ -5,6 +5,7 @@ import H2Wrapper from './H2Wrapper';
 
 import analyticsUtil from '../../utils/analytics';
 import { AUTHCONTEXT } from '../../contexts/authContext';
+import { NOTIFICATIONCONTEXT } from '../../contexts/notificationContext';
 
 
 const HomeOrg = ({setPageNo,messageQueue,setMessageQueue}:{messageQueue:{
@@ -16,6 +17,7 @@ const HomeOrg = ({setPageNo,messageQueue,setMessageQueue}:{messageQueue:{
 }[]>>,setPageNo: React.Dispatch<React.SetStateAction<number>>}) => {
 
     let authContext=useContext(AUTHCONTEXT);
+    let notificationsContext=useContext(NOTIFICATIONCONTEXT);
     let [testLatestData,setTestLatestData]=useState<{
         name:string,
         _id:string
@@ -31,9 +33,9 @@ const HomeOrg = ({setPageNo,messageQueue,setMessageQueue}:{messageQueue:{
 
     useEffect(()=>{
         if(authContext?.authState.orgData._id){
-            analyticsUtil.loadLatestBatches(setBatchLatestData as ()=>{});
-            analyticsUtil.loadLatestTests(setTestLatestData as ()=>{});
-            analyticsUtil.loadTestDeployed(setTestDeployedData as ()=>{});
+            analyticsUtil.loadLatestBatches(setBatchLatestData as ()=>{},authContext,notificationsContext);
+            analyticsUtil.loadLatestTests(setTestLatestData as ()=>{},authContext,notificationsContext);
+            analyticsUtil.loadTestDeployed(setTestDeployedData as ()=>{},authContext,notificationsContext);
         }
     },[authContext?.authState]);
 
