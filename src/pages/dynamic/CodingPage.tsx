@@ -87,9 +87,9 @@ const CodingPage = ({data,setCurrView,setResults,results}:{
         .then(res=>res.json())
         .then(data=>{
             if(data.success){
-                if(compilerOutput.current) compilerOutput.current.innerText = data.data;
+                (document.getElementById("compilerOutputID") as HTMLDivElement).innerText = data.data;
             }else{
-                if(compilerOutput.current) compilerOutput.current.innerText = "SERVER ERROR";
+                (document.getElementById("compilerOutputID") as HTMLDivElement).innerText = "SERVER ERROR";
             }
         })
         .catch(err=>console.log(err));
@@ -337,7 +337,7 @@ const CodingPage = ({data,setCurrView,setResults,results}:{
                 />
                 {compilerSettings.view && <div className="compiler">
                     <textarea rows={6} ref={compilerEditorRef}/>
-                    <div className="output-compiler" ref={compilerOutput}>
+                    <div className="output-compiler" ref={compilerOutput} id="compilerOutputID">
                         {/* 8<br/>
                         10<br/> */}
                     </div>

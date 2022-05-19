@@ -5,9 +5,9 @@ public class Solution{
         int t=sc.nextInt();
         while(t-->0){
             int n=sc.nextInt();
-            int product=1;
-            for(int i=0;i<n;i++) product*=sc.nextInt();
-            System.out.println(product);
+            int res=1;
+            for(int i=1;i<=n;i++) res*=i;
+            System.out.println(res);
         }
         sc.close();
     }
